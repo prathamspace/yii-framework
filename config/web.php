@@ -68,7 +68,18 @@ $config = [
                 ]
             ],
         ],
-        
+        'common'=>[
+            'class'=>'app\components\CommonComponent',
+        ]
+    ],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+            
+        ],
+        'user' => [
+            'class' => 'app\modules\user\UserIndex',
+        ],
     ],
     'params' => $params,
 ];

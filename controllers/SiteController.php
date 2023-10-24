@@ -17,6 +17,7 @@ class SiteController extends Controller
      */
     public function behaviors()
     {
+        echo 'boom coming from site controller';
         return [
             'access' => [
                 'class' => AccessControl::class,

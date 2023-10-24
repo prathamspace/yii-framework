@@ -24,6 +24,9 @@ class FirstController extends Controller
         // $data->phone_no=1223232;
 
 
+
+
+
         //////// Update ////////
 
         // $data =Students::findone(1);
@@ -32,19 +35,81 @@ class FirstController extends Controller
         
         // $data->save();
         
+
+
+
+
+
         //////// Delete ////////
 
         // $data=Students::findOne(4);
         
         // $data->delete();
 
+       
+       
+       
+       
+       
         //////// Select ////////
 
+        // -> To Select all
+        
+        // $data=Students::find()->all();
+
+        // -> To Select one
+        
+        // $data=Students::findone(1);
+
+        // -> To Select data basesd on condition
+
+        // $data=Students::findAll(['id'=>1]);
 
 
+        // To print/get the values 
 
-        // echo '<pre>';
-        // print_r($data);
+        // foreach ($data as $value) {
+        //     echo $value->name.'<br>';
+        // }
+        
+        //////// Conditions ////////
+        
+
+       // As array 
+
+        // $data=Students::find()->asArray()->all();
+        // foreach ($data as $value) {
+        //         echo $value['name'].'<br>';
+        // }
+
+
+       // Raw SQL and where condition
+
+       // $data=Students::find()->where(['id'=>[1,2,3],'name'=>'pratham'])->orderBy('name')->all(); // IN
+
+
+    //    echo $data->createCommand()->getRawSql();
+    //    die;
+
+
+        //////// Join ////////
+
+        $data=Students::find()
+        ->select('students.*','subjecys.name')
+        ->leftJoin('subjecys','subjecys.student_id=student.id')
+        ->where(['students.id'=>[1,2,3],'students.name'=>'pratham'])->orderBy('name');
+        echo $data->createCommand()->getRawSql();
+        die;
+        
+        // ->all(); // IN
+       
+
+        foreach ($data as $value) {
+            echo $value['name'].'<br>';
+        }
+
+
+        
         echo "yes";
         die;
     }
@@ -61,6 +126,19 @@ class FirstController extends Controller
     public function actionHome(){
         return $this->render('home');
     }
+
+
+
+    public function actionQueryBuilder(){
+        
+        $data = new Students();
+        echo $data->getData().'<br>';
+        echo 'Query Builder';
+    }
+
+
+
+    
     public function actionInfo(){
         $data=Yii::$app->request->get();
         echo "<pre>";
@@ -79,4 +157,14 @@ class FirstController extends Controller
         echo 'info-page';
         die;
     }
+
+
+    public function actionComponent(){
+        // echo Yii::$app->common->getToken();
+       $data= Yii::$app->common->getData();
+        echo "<pre>";
+        print_r($data);
+        echo 'component';
+    }
+
 }
